@@ -1,0 +1,13 @@
+streamlit
+langchain
+langchain-community
+langgraph
+langchain-nvidia-ai-endpoints
+ultralytics
+torch
+torchvision
+opencv-python
+numpy
+pandas
+pydantic
+python-dotenv

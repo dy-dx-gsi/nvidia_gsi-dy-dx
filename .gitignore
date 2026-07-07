@@ -1,0 +1,12 @@
+# OmniForge
+venv/
+.venv_isaac/
+__pycache__/
+*.pyc
+.env
+dataset_*/
+omniforge_runs/
+runs/
+mock_assets/
+test_*/
+*.pt
