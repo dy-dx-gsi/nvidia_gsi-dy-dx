@@ -13,17 +13,32 @@ OmniForge is an end-to-end, decoupled software pipeline that acts as the intelli
 
 ## Architecture
 
-```
-User Prompt ──► LangGraph Orchestrator (NVIDIA NIM) ──► Structured Intent JSON
-                                                             │
-                    ┌────────────────────────────────────────┤
-                    ▼                                        ▼
-        Procedural Synth Engine              YOLOv8 Edge Fine-Tuning (CUDA)
-        (OpenCV + NumPy)                     (Ultralytics)
-        Generates N unique frames                    │
-        per part/defect combo                        ▼
-                                          ROS 2 Bridge (rclpy)
-                                          Deploys to physical hardware
+```mermaid
+graph TD
+    classDef user fill:#2d3748,stroke:#4a5568,color:#fff,stroke-width:2px,border-radius:5px;
+    classDef agent fill:#047857,stroke:#065f46,color:#fff,stroke-width:2px,border-radius:5px;
+    classDef sim fill:#0ea5e9,stroke:#0284c7,color:#fff,stroke-width:2px,border-radius:5px;
+    classDef ai fill:#6d28d9,stroke:#5b21b6,color:#fff,stroke-width:2px,border-radius:5px;
+    classDef hardware fill:#dc2626,stroke:#991b1b,color:#fff,stroke-width:2px,border-radius:5px;
+
+    A[🗣️ Natural Language Prompt]:::user -->|Streamlit UI| B(🧠 LangGraph Agentic Orchestrator<br>NVIDIA NIM Llama 3.1):::agent
+    
+    B -->|Extracts Intent & Physical Parameters| C{🛠️ CAD Matching Engine}:::agent
+    
+    C -->|.usd / .usdz Match| D[📦 Custom CAD Model]:::sim
+    C -->|No CAD Found| E[🧊 AI-Generated Primitive]:::sim
+    
+    D --> F
+    E --> F
+    
+    F((🌌 NVIDIA Isaac Sim<br>Omniverse Replicator)):::sim
+    
+    F -->|Ray-Traced Domain Randomization| G[📸 Synthetic Defect Dataset]:::sim
+    
+    G -->|Automated Transfer Learning| H[🚀 YOLOv8 Edge Fine-Tuning<br>NVIDIA CUDA Accelerated]:::ai
+    
+    B -->|Calculates 6-Axis Joint Kinematics| I
+    H -->|Deploys Trained Network| I((🤖 Physical Factory Robot<br>ROS 2 Hardware Bridge)):::hardware
 ```
 
 ## Quick Start
