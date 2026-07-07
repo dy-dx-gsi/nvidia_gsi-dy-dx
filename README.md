@@ -49,6 +49,9 @@ streamlit run app.py
 | **NVIDIA CUDA** | GPU-accelerated YOLOv8 training on RTX 3070 Ti |
 | **LangChain + LangGraph** | Agentic AI orchestration framework |
 
+## User Interface(Streamlit for quick demo)
+<img width="1271" height="613" alt="image" src="https://github.com/user-attachments/assets/56a15b32-d49b-43bc-ae78-df517e254a0d" />
+
 ## Example Prompts
 
 - *"Generate 50 images of scratched gears and train a model"*
